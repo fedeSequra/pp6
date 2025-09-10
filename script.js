@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             percentageTableBody: document.querySelector("#percentage-table tbody"),
             simbaOutput: document.getElementById('simba-output'),
             copyButton: document.querySelector('.copy-button'),
-            modal: document.getElementById('notification-modal'),
-            modalMessage: document.getElementById('modal-message'),
-            modalCloseButton: document.getElementById('modal-close-button'),
+            
         },
 
         // Initialize the application
@@ -67,14 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Event delegation for tables
             this.elements.mainDataTableBody.addEventListener('input', this.generateSimbaRules.bind(this));
             this.elements.percentageTableBody.addEventListener('input', this.generateSimbaRules.bind(this));
-
-            // Modal events
-            this.elements.modalCloseButton.addEventListener('click', this.hideModal.bind(this));
-            this.elements.modal.addEventListener('click', (e) => {
-                if (e.target === this.elements.modal) {
-                    this.hideModal();
-                }
-            });
         },
 
         // Render the main data table for instalments
@@ -146,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            this.showModal(`${lines.length} fila(s) de datos han sido procesadas.`);
+            
             this.generateSimbaRules();
         },
 
@@ -222,20 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
             this.elements.simbaOutput.select();
             try {
                 document.execCommand('copy');
-                this.showModal('¡Resultado copiado al portapapeles!');
+                
             } catch (err) {
-                this.showModal('Error al copiar.');
+                
             }
         },
 
-        showModal(message) {
-            this.elements.modalMessage.textContent = message;
-            this.elements.modal.style.display = 'flex';
-        },
-
-        hideModal() {
-            this.elements.modal.style.display = 'none';
-        },
+        
     };
 
     app.init();
