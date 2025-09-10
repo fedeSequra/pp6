@@ -1,35 +1,35 @@
 # PP6 Rule Generator
 
-Una sencilla aplicación web para generar "Simba PP6 Rules" basadas en la configuración del usuario. La aplicación permite dos modos de cálculo: por cuotas (Instalments) y por porcentajes.
+A simple web application to generate "Simba PP6 Rules" based on user configuration. The application allows two calculation modes: by installments and by percentages.
 
-## Características
+## Features
 
-- **Dos Modos de Cálculo:**
-  - **Instalments:** Calcula las reglas basándose en una tarifa mensual para diferentes rangos.
-  - **Porcentajes:** Calcula las reglas basándose en un porcentaje por número de cuotas.
-- **Pegado Rápido:** Permite pegar datos directamente desde una hoja de cálculo de Excel para rellenar la tabla de tarifas mensuales.
-- **Generación Dinámica:** La tabla de datos y las reglas de Simba se actualizan automáticamente a medida que se introducen los datos.
-- **Copiar al Portapapeles:** Un botón para copiar fácilmente las reglas generadas.
-- **Interfaz Moderna:** Una interfaz de usuario limpia, moderna y responsiva.
+- **Two Calculation Modes:**
+  - **Instalments:** Calculates the rules based on a monthly fee for different ranges.
+  - **Percentages:** Calculates the rules based on a percentage per number of installments.
+- **Quick Paste:** Allows pasting data directly from an Excel spreadsheet to fill the monthly fee table.
+- **Dynamic Generation:** The data table and Simba rules are updated automatically as data is entered.
+- **Copy to Clipboard:** A button to easily copy the generated rules.
+- **Modern Interface:** A clean, modern, and responsive user interface.
 
-## Cómo Usar
+## How to Use
 
-1.  **Abrir la aplicación:** Simplemente abre el archivo `index.html` en tu navegador web preferido.
-2.  **Seleccionar Modo:** Elige entre el modo "Instalments" o "Porcentajes %".
-3.  **Introducir Datos:**
-    - **Modo Instalments:**
-        1.  Ajusta el **Límite** si es necesario.
-        2.  Pega los datos de la columna de "Fee Mensual" en el área de texto del paso 2.
-        3.  Pulsa **"Cargar tabla"** para rellenar la "Tabla de Datos".
-        4.  Ajusta los valores en la tabla si es necesario.
-    - **Modo Porcentajes %:**
-        1.  Selecciona el tipo: "Nacional" o "Internacional".
-        2.  Introduce los porcentajes para cada número de cuota en la tabla.
-4.  **Obtener Resultados:** Las reglas de Simba se generan automáticamente en el panel de la derecha.
-5.  **Copiar Resultados:** Usa el botón **"Copiar al Portapapeles"** para copiar las reglas generadas.
+1.  **Open the application:** Simply open the `index.html` file in your preferred web browser.
+2.  **Select Mode:** Choose between "Instalments" or "Percentages %" mode.
+3.  **Enter Data:**
+    - **Instalments Mode:**
+        1.  Adjust the **Limit** if necessary.
+        2.  Paste the data from the "Monthly Fee" column into the text area of step 2.
+        3.  Press **"Load table"** to fill the "Data Table".
+        4.  Adjust the values in the table if necessary.
+    - **Percentages % Mode:**
+        1.  Select the type: "National" or "International".
+        2.  Enter the percentages for each number of installments in the table.
+4.  **Get Results:** The Simba rules are automatically generated in the panel on the right.
+5.  **Copy Results:** Use the **"Copy to Clipboard"** button to copy the generated rules.
 
-## Tecnologías Utilizadas
+## Technologies Used
 
 - **HTML5**
-- **CSS3** (con variables CSS para una fácil personalización)
-- **JavaScript** (Vanilla JS, sin frameworks)
+- **CSS3** (with CSS variables for easy customization)
+- **JavaScript** (Vanilla JS, no frameworks)
