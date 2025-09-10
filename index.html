@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP6 Rule Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>PP6 Rule Generator</h1>
+    </header>
+    
+    <div class="main-content">
+        <div class="left-column">
+            <!-- Calculation Options Panel -->
+            <div class="panel">
+                <h2>1. Opciones de Cálculo</h2>
+                <div class="form-group">
+                    <label>Modo de cálculo</label>
+                    <div class="radio-group">
+                        <input type="radio" id="instalments-mode" name="mode" value="instalments" checked>
+                        <label for="instalments-mode">Instalments</label>
+                        <input type="radio" id="percentage-mode" name="mode" value="percentage">
+                        <label for="percentage-mode">Porcentajes %</label>
+                    </div>
+                </div>
+                <div id="instalments-options">
+                    <div class="form-group" id="limit-input-group">
+                        <label for="limit">Límite</label>
+                        <input type="number" id="limit" value="9000">
+                    </div>
+                </div>
+                <div id="percentage-options" style="display:none;">
+                     <div class="form-group">
+                        <label>Tipo</label>
+                        <div class="radio-group">
+                            <input type="radio" id="nacional-type" name="type" value="nacional" checked>
+                            <label for="nacional-type">Nacional</label>
+                            <input type="radio" id="internacional-type" name="type" value="internacional">
+                            <label for="internacional-type">Internacional</label>
+                        </div>
+                     </div>
+                     <div class="form-group" id="license-fee-group" style="display:none;">
+                        <label for="license-fee">License Servicing Fee Percentage (%)</label>
+                        <input type="number" id="license-fee" value="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fast Paste Panel -->
+            <div class="panel" id="fast-paste-panel">
+                <h2>2. Pegado Rápido de 'Fee Mensual'</h2>
+                <div class="form-group">
+                    <label for="paste-area">Pega aquí los datos de la columna de fees</label>
+                    <textarea id="paste-area" rows="5" placeholder="Copia una columna de Excel y pégala aquí..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="load-table-button" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                        <span>Cargar tabla</span>
+                    </button>
+                    <button id="clear-paste-button" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                        <span>Limpiar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Data Input Panel -->
+            <div class="panel" id="main-data-panel">
+                <h2>3. Tabla de Datos</h2>
+                <div class="table-container">
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Fee Mensual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas generadas dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Percentage by Instalment Panel -->
+            <div class="panel" id="percentage-by-instalment-panel" style="display:none;">
+                <h2>2. Porcentajes por Cuota</h2>
+                 <p style="font-size: 0.9em; color: var(--text-secondary); margin-top: -1.5rem; margin-bottom: 1.5rem;">
+                    Introduce el porcentaje para cada número de cuotas.
+                </p>
+                <div class="table-container">
+                    <table id="percentage-table">
+                        <thead>
+                            <tr>
+                                <th>Cuota</th>
+                                <th>Porcentaje (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <!-- Results Panel -->
+            <div class="panel result-panel">
+                <h2>PP6 Rules</h2>
+                <textarea id="simba-output" readonly></textarea>
+                <button class="copy-button">
+                    <span>Copiar al Portapapeles</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="notification-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <p id="modal-message"></p>
+        <button id="modal-close-button">Cerrar</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
