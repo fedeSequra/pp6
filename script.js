@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             internacionalType: document.getElementById('internacional-type'),
             licenseFeeGroup: document.getElementById('license-fee-group'),
             licenseFeeInput: document.getElementById('license-fee'),
+            onlyNonZeroCheckbox: document.getElementById('filter-nonzero'),
             pasteArea: document.getElementById('paste-area'),
             loadTableButton: document.getElementById('load-table-button'),
             clearPasteButton: document.getElementById('clear-paste-button'),
@@ -61,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.elements.loadTableButton.addEventListener('click', this.loadTableFromPaste.bind(this));
             this.elements.clearPasteButton.addEventListener('click', this.clearPasteArea.bind(this));
             this.elements.copyButton.addEventListener('click', this.copyToClipboard.bind(this));
+            if (this.elements.onlyNonZeroCheckbox) {
+                this.elements.onlyNonZeroCheckbox.addEventListener('change', this.generateSimbaRules.bind(this));
+            }
             
             // Event delegation for tables
             this.elements.mainDataTableBody.addEventListener('input', this.generateSimbaRules.bind(this));
@@ -167,13 +171,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     userData.push({ from: fromValue, fee: feeValue });
                 }
             });
+            const showOnlyWithValue = this.elements.onlyNonZeroCheckbox && this.elements.onlyNonZeroCheckbox.checked;
 
             for (let inst = this.config.minInstalment; inst <= this.config.maxInstalment; inst++) {
                 const instalmentRows = userData.map(dataRow => ({
                     from: dataRow.from,
+                    fee: dataRow.fee,
                     line: `${inst};${dataRow.from.toFixed(1)};${(dataRow.fee * inst).toFixed(1)};0.0;0.0;0.00`
                 })).sort((a, b) => a.from - b.from);
-                
+
+                const hasNonZero = instalmentRows.some(r => r.fee !== 0);
+                if (showOnlyWithValue && !hasNonZero) {
+                    continue; // skip this instalment entirely when filtering non-zero
+                }
+
                 if (!instalmentRows.some(row => row.from === 0.0)) {
                     lines.push(`${inst};0.0;0.0;0.0;0.0;0.00`);
                 }
@@ -197,12 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             for (let inst = this.config.minInstalment; inst <= this.config.maxInstalment; inst++) {
                 const percentageForInst = percentageMap[inst] || 0.0;
-                
+                const showOnlyWithValue = this.elements.onlyNonZeroCheckbox && this.elements.onlyNonZeroCheckbox.checked;
+
+                if (showOnlyWithValue && percentageForInst === 0) {
+                    continue; // skip this instalment entirely when filtering non-zero
+                }
+
                 lines.push(`${inst};0.0;0.0;0.00;0.0;0.0`);
 
                 const dataLineLicenseFee = isInternacional ? licenseFee : 0;
-                const formattedPercentage = percentageForInst === 0 ? '0.0' : percentageForInst.toFixed(2);
-                
+                const formattedPercentage = percentageForInst === 0 ? '0.00' : percentageForInst.toFixed(2);
+
                 lines.push(`${inst};0.1;0.0;${formattedPercentage};0.0;${dataLineLicenseFee}`);
             }
             return lines;

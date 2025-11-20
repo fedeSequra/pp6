@@ -318,3 +318,24 @@ footer {
     }
 }
 
+/* Remove number input spinners (WebKit + Firefox) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Filter checkbox styling */
+.filter-checkbox {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+.filter-checkbox label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
