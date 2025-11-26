@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             licenseFeeGroup: document.getElementById('license-fee-group'),
             licenseFeeInput: document.getElementById('license-fee'),
             onlyNonZeroCheckbox: document.getElementById('filter-nonzero'),
+            filterCheckboxContainer: document.querySelector('.filter-checkbox'),
             pasteArea: document.getElementById('paste-area'),
             loadTableButton: document.getElementById('load-table-button'),
             clearPasteButton: document.getElementById('clear-paste-button'),
@@ -113,6 +114,24 @@ document.addEventListener('DOMContentLoaded', () => {
             this.elements.fastPastePanel.style.display = isInstalments ? 'block' : 'none';
             this.elements.mainDataPanel.style.display = isInstalments ? 'block' : 'none';
             this.elements.percentageByInstalmentPanel.style.display = isInstalments ? 'none' : 'block';
+            // When in percentage mode, hide the "Mostrar solo cuotas con valor" option
+            if (!isInstalments) {
+                if (this.elements.filterCheckboxContainer) {
+                    this.elements.filterCheckboxContainer.style.display = 'none';
+                }
+                if (this.elements.onlyNonZeroCheckbox) {
+                    this.elements.onlyNonZeroCheckbox.checked = true; // default: show only with value
+                    this.elements.onlyNonZeroCheckbox.disabled = true; // prevent changing while hidden
+                }
+            } else {
+                if (this.elements.filterCheckboxContainer) {
+                    this.elements.filterCheckboxContainer.style.display = 'block';
+                }
+                if (this.elements.onlyNonZeroCheckbox) {
+                    this.elements.onlyNonZeroCheckbox.disabled = false;
+                }
+            }
+
             this.handleCountryChange();
         },
 
